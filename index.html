@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}html{scroll-behavior:smooth}</style>
+<title>Arena Combat Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,600;0,800;0,900;1,900&family=Fira+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: dark-first fight-night poster — condensed italic headlines, taekwondo belt ranks as the recurring stripe motif, discipline cards, filterable weekly timetable, plans, trial form */
+:root{
+  --bg:#0E1420; --panel:#151D2C; --panel2:#1C2638; --ink:#F1F3F7; --muted:#A4AEC0; --line:#27334A;
+  --fire:#F0643A; --gold:#F2C14E; --onfire:#140A05;
+  --b-white:#F1F3F7; --b-yellow:#F2C14E; --b-green:#2FA866; --b-blue:#2F7BE0; --b-red:#E0413A; --b-black:#05080D;
+  --f-display:"Fira Sans Extra Condensed","Arial Narrow",sans-serif; --f-body:"Fira Sans","Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#EEF1F5; --panel:#FFFFFF; --panel2:#E4E9F0; --ink:#101826; --muted:#546079; --line:#D3DAE4;
+  --fire:#D24A1F; --gold:#B8860B; --onfire:#FFFFFF; --b-white:#FFFFFF; --b-black:#101826; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#EEF1F5; --panel:#FFFFFF; --panel2:#E4E9F0; --ink:#101826; --muted:#546079; --line:#D3DAE4;
+  --fire:#D24A1F; --gold:#B8860B; --onfire:#FFFFFF; --b-white:#FFFFFF; --b-black:#101826; color-scheme:light}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+h1,h2,h3{font-family:var(--f-display);margin:0;line-height:.95;text-transform:uppercase;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:20px}
+.belt{display:flex;height:8px}
+.belt i{flex:1}
+.belt i:nth-child(1){background:var(--b-white)}.belt i:nth-child(2){background:var(--b-yellow)}.belt i:nth-child(3){background:var(--b-green)}.belt i:nth-child(4){background:var(--b-blue)}.belt i:nth-child(5){background:var(--b-red)}.belt i:nth-child(6){background:var(--b-black);box-shadow:inset 0 0 0 1px var(--line)}
+.eyebrow{font-family:var(--f-display);font-weight:800;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:.04em;text-transform:uppercase;padding:12px 24px;border-radius:4px;text-decoration:none;border:2px solid var(--fire);cursor:pointer}
+.btn.fire{background:var(--fire);color:var(--onfire)}
+.btn.out{background:transparent;color:var(--ink);border-color:var(--ink)}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:22px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:900;font-style:italic;font-size:26px;letter-spacing:.02em}
+.logo svg{width:32px;height:32px}
+header nav{display:flex;gap:22px;margin-left:auto;font-weight:500}
+header nav a{text-decoration:none;color:var(--muted)}
+header nav a:hover{color:var(--ink)}
+header .btn{font-size:16px;padding:8px 16px}
+@media (max-width:820px){header nav{display:none}header .btn{margin-left:auto}}
+
+.hero{padding-block:56px 48px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;align-items:center}
+.hero h1{font-size:clamp(56px,10vw,132px);font-weight:900;font-style:italic;letter-spacing:-.01em;margin-top:12px}
+.hero h1 span{color:var(--fire)}
+.hero .lead{color:var(--muted);font-size:18px;max-width:30em;margin-top:18px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.stats{display:flex;flex-wrap:wrap;gap:28px;margin-top:34px}
+.stats b{display:block;font-family:var(--f-display);font-weight:900;font-size:40px;line-height:1}
+.stats span{font-size:13px;color:var(--muted)}
+.ring{max-width:100%}
+.ring svg{display:block;width:100%;height:auto}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.ring{max-width:420px}}
+
+section.block{padding-block:72px}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px}
+.head h2{font-size:clamp(40px,6vw,72px);font-weight:900;font-style:italic;margin-top:6px}
+.head p{color:var(--muted);max-width:30em}
+
+.disc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.d{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.d::before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--c)}
+.d h3{font-size:38px;font-weight:900;font-style:italic}
+.d p{color:var(--muted);font-size:15px}
+.d ul{list-style:none;padding:0;margin:auto 0 0;display:grid;gap:4px;font-size:14px}
+.d li{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:6px}
+.d li span{color:var(--muted)}
+@media (max-width:980px){.disc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.disc{grid-template-columns:1fr}}
+
+.sched-bg{background:var(--panel)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chips button{font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:6px 14px;border-radius:4px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.chips button i{width:10px;height:10px;border-radius:2px;background:var(--c)}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.week{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.day h3{font-size:22px;font-weight:800;padding:8px 10px;border-radius:4px;background:var(--panel2)}
+.day.today h3{background:var(--fire);color:var(--onfire)}
+.day.today h3::after{content:" · σήμερα";font-size:14px;letter-spacing:.04em}
+.cls{margin-top:8px;padding:10px;border-left:4px solid var(--c);background:var(--bg);border-radius:0 4px 4px 0}
+.cls b{display:block;font-variant-numeric:tabular-nums;font-size:14px}
+.cls span{display:block;font-family:var(--f-display);font-weight:800;font-size:19px;text-transform:uppercase;line-height:1.1}
+.cls small{color:var(--muted);font-size:12.5px}
+.none{color:var(--muted);font-size:14px;padding:10px}
+@media (max-width:980px){.week{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.week{grid-template-columns:1fr}}
+
+.coaches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.coach{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel)}
+.coach .ph{aspect-ratio:4/3;max-width:100%;background:var(--panel2);display:grid;place-items:center;position:relative}
+.coach .ph span{font-family:var(--f-display);font-weight:900;font-style:italic;font-size:64px;color:var(--c)}
+.coach .ph .belt{position:absolute;left:0;right:0;bottom:0;height:5px}
+.coach div.t{padding:16px}
+.coach h3{font-size:26px;font-weight:800}
+.coach p{color:var(--muted);font-size:14px;margin-top:4px}
+@media (max-width:980px){.coaches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.coaches{grid-template-columns:1fr}}
+
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:26px;display:flex;flex-direction:column;gap:14px}
+.plan.hot{border-color:var(--fire);box-shadow:0 0 0 1px var(--fire)}
+.plan .badge{align-self:flex-start;font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:14px;background:var(--fire);color:var(--onfire);padding:2px 10px;border-radius:3px}
+.plan h3{font-size:32px;font-weight:900;font-style:italic}
+.price{font-family:var(--f-display);font-weight:900;font-size:56px;line-height:1}
+.price small{font-family:var(--f-body);font-size:15px;font-weight:400;color:var(--muted)}
+.plan ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:15px}
+.plan li::before{content:"✓  ";color:var(--gold);font-weight:700}
+.plan .btn{margin-top:auto;justify-content:center}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+
+.trial{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:36px}
+.trial h2{font-size:clamp(40px,5vw,60px);font-weight:900;font-style:italic}
+.trial .copy p{color:var(--muted);margin-top:14px}
+form#trial{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+form#trial label{display:grid;gap:4px;font-size:13px;font-weight:700;color:var(--muted)}
+form#trial .full{grid-column:1/-1}
+form#trial input,form#trial select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px 12px;width:100%;min-width:0}
+form#trial button{grid-column:1/-1;justify-self:start}
+.msg{grid-column:1/-1;font-weight:700;color:var(--gold)}
+@media (max-width:860px){.trial{grid-template-columns:1fr;padding:24px 18px}}
+@media (max-width:460px){form#trial{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);margin-top:72px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:28px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="16,2 29,9 29,23 16,30 3,23 3,9" fill="none" stroke="var(--fire)" stroke-width="3"/><path d="M11 21 16 9l5 12M13 17h6" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linejoin="round"/></svg>ARENA</a>
+    <nav><a href="#disciplines">Αθλήματα</a><a href="#schedule">Πρόγραμμα</a><a href="#coaches">Προπονητές</a><a href="#plans">Συνδρομές</a></nav>
+    <a class="btn fire" href="#trial">Δωρεάν μάθημα</a>
+  </div>
+</header>
+<div class="belt" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">MMA · Boxing · Kickboxing · Taekwondo</span>
+      <h1>Μπες στο <span>ρινγκ.</span></h1>
+      <p class="lead">Σχολή μαχητικών αθλημάτων στον Πειραιά για αρχάριους, αθλητές αγώνων και παιδιά από 6 ετών. Το πρώτο μάθημα είναι δωρεάν.</p>
+      <div class="ctas"><a class="btn fire" href="#trial">Κλείσε δωρεάν μάθημα</a><a class="btn out" href="#schedule">Δες το πρόγραμμα</a></div>
+      <div class="stats">
+        <div><b>4</b><span>αθλήματα</span></div>
+        <div><b>33</b><span>μαθήματα / εβδομάδα</span></div>
+        <div><b>420 m²</b><span>ταταμί, ρινγκ, κλουβί</span></div>
+      </div>
+    </div>
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <polygon points="200,20 327,73 380,200 327,327 200,380 73,327 20,200 73,73" fill="var(--panel)" stroke="var(--line)" stroke-width="2"/>
+        <polygon points="200,50 306,94 350,200 306,306 200,350 94,306 50,200 94,94" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 6"/>
+        <circle cx="200" cy="200" r="70" fill="none" stroke="var(--fire)" stroke-width="3"/>
+        <circle cx="200" cy="200" r="6" fill="var(--fire)"/>
+        <g stroke="var(--muted)" stroke-width="1" opacity=".6"><path d="M200 20v360M20 200h360M73 73l254 254M327 73 73 327"/></g>
+        <g font-family="Fira Sans Extra Condensed,sans-serif" font-weight="800" font-size="18" fill="var(--muted)" text-anchor="middle">
+          <text x="200" y="14" >MMA</text><text x="200" y="398">TAEKWONDO</text><text x="392" y="205" text-anchor="end">BOX</text><text x="8" y="205" text-anchor="start">KICK</text>
+        </g>
+        <g transform="translate(200 200) rotate(-12)">
+          <rect x="-110" y="-12" width="220" height="24" rx="4" fill="var(--b-black)" stroke="var(--line)"/>
+          <rect x="60" y="-12" width="30" height="24" fill="var(--b-red)"/>
+          <path d="M-20 -12 l-30 70 h22 l20 -58 z M20 -12 l30 70 h-22 l-20 -58 z" fill="var(--b-black)" stroke="var(--line)"/>
+          <rect x="-20" y="-16" width="40" height="32" rx="5" fill="var(--b-black)" stroke="var(--gold)" stroke-width="2"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="disciplines" style="padding-top:24px">
+  <div class="wrap">
+    <div class="head"><div><span class="eyebrow">Αθλήματα</span><h2>Διάλεξε το στυλ σου</h2></div><p>Κάθε τμήμα έχει επίπεδα για αρχάριους, μεσαίους και αγωνιστικούς. Δεν χρειάζεται προηγούμενη εμπειρία.</p></div>
+    <div class="disc">
+      <article class="d" style="--c:var(--fire)"><h3>MMA</h3><p>Striking, πάλη και ground game. Συνδυάζει τα πάντα σε ένα σύστημα.</p><ul><li>Επίπεδα <span>Αρχ. · Μεσ. · Αγων.</span></li><li>Ηλικίες <span>16+</span></li><li>Εξοπλισμός <span>γάντια 4 oz, rash guard</span></li></ul></article>
+      <article class="d" style="--c:var(--b-blue)"><h3>Boxing</h3><p>Τεχνική, κίνηση ποδιών, σάκος και sparring με έλεγχο.</p><ul><li>Επίπεδα <span>Αρχ. · Μεσ. · Αγων.</span></li><li>Ηλικίες <span>12+</span></li><li>Εξοπλισμός <span>γάντια 12–16 oz</span></li></ul></article>
+      <article class="d" style="--c:var(--gold)"><h3>Kickboxing</h3><p>Γροθιές, κλωτσιές και γόνατα. Γρήγορη φυσική κατάσταση και αυτοπεποίθηση.</p><ul><li>Επίπεδα <span>Αρχ. · Μεσ.</span></li><li>Ηλικίες <span>14+</span></li><li>Εξοπλισμός <span>γάντια, επικαλαμίδες</span></li></ul></article>
+      <article class="d" style="--c:var(--b-green)"><h3>Taekwondo</h3><p>Ολυμπιακό άθλημα με εξετάσεις ζωνών. Πειθαρχία, ευλυγισία, κλωτσιές.</p><ul><li>Ζώνες <span>λευκή → μαύρη 1 Dan</span></li><li>Ηλικίες <span>6+</span></li><li>Εξοπλισμός <span>dobok, προστατευτικά</span></li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="block sched-bg" id="schedule">
+  <div class="wrap">
+    <div class="head"><div><span class="eyebrow">Εβδομαδιαίο πρόγραμμα</span><h2>Πότε προπονούμαστε</h2></div><p>Διάλεξε άθλημα για να δεις μόνο τα δικά του μαθήματα. Κυριακή κλειστά.</p></div>
+    <div class="chips" id="chips" role="group" aria-label="Φίλτρο αθλήματος"></div>
+    <div class="week" id="week"></div>
+  </div>
+</section>
+
+<section class="block" id="coaches">
+  <div class="wrap">
+    <div class="head"><div><span class="eyebrow">Προπονητές</span><h2>Η ομάδα στη γωνία σου</h2></div></div>
+    <div class="coaches">
+      <div class="coach" style="--c:var(--fire)"><div class="ph"><span>ΑΚ</span><div class="belt"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="t"><h3>Άρης Κ.</h3><p>Head coach MMA · 12 χρόνια αγώνων</p></div></div>
+      <div class="coach" style="--c:var(--b-blue)"><div class="ph"><span>ΜΛ</span><div class="belt"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="t"><h3>Μαρίνα Λ.</h3><p>Boxing · πρώην μέλος εθνικής ομάδας</p></div></div>
+      <div class="coach" style="--c:var(--gold)"><div class="ph"><span>ΣΠ</span><div class="belt"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="t"><h3>Στέλιος Π.</h3><p>Kickboxing · πιστοποιημένος προπονητής</p></div></div>
+      <div class="coach" style="--c:var(--b-green)"><div class="ph"><span>ΕΝ</span><div class="belt"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="t"><h3>Ελένη Ν.</h3><p>Taekwondo · μαύρη ζώνη 4 Dan</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="plans" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div><span class="eyebrow">Συνδρομές</span><h2>Χωρίς κρυφές χρεώσεις</h2></div><p>Χωρίς εγγραφή και χωρίς δέσμευση. Έκπτωση 15% για φοιτητές και αδέρφια.</p></div>
+    <div class="plans">
+      <div class="plan"><h3>Ένα άθλημα</h3><p class="price">45 €<small> / μήνα</small></p><ul><li>2 μαθήματα την εβδομάδα</li><li>Ένα άθλημα της επιλογής σου</li><li>Αποδυτήρια και ντουζιέρες</li></ul><a class="btn out" href="#trial">Ξεκίνα</a></div>
+      <div class="plan hot"><span class="badge">Η πιο δημοφιλής</span><h3>Απεριόριστο</h3><p class="price">65 €<small> / μήνα</small></p><ul><li>Όλα τα μαθήματα, όλα τα αθλήματα</li><li>Open mat Σαββάτου</li><li>Αξιολόγηση φυσικής κατάστασης κάθε 3 μήνες</li></ul><a class="btn fire" href="#trial">Ξεκίνα</a></div>
+      <div class="plan"><h3>Παιδικό</h3><p class="price">35 €<small> / μήνα</small></p><ul><li>Taekwondo ή boxing για 6–13 ετών</li><li>2 μαθήματα την εβδομάδα</li><li>Εξετάσεις ζωνών δύο φορές τον χρόνο</li></ul><a class="btn out" href="#trial">Ξεκίνα</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="trial">
+  <div class="wrap">
+    <div class="trial">
+      <div class="copy"><span class="eyebrow">Πρώτο μάθημα δωρεάν</span><h2>Έλα να δοκιμάσεις</h2><p>Φέρε αθλητικά ρούχα και νερό. Γάντια και προστατευτικά σου δανείζουμε εμείς για το πρώτο μάθημα.</p><p>Λεωφ. Ηρώων Πολυτεχνείου 00, Πειραιάς · 210 000 0000</p></div>
+      <form id="trial" novalidate>
+        <label>Ονοματεπώνυμο<input id="t-name" required autocomplete="name"></label>
+        <label>Τηλέφωνο<input id="t-phone" type="tel" required autocomplete="tel"></label>
+        <label>Άθλημα<select id="t-sport"></select></label>
+        <label>Επίπεδο<select id="t-level"><option>Αρχάριος</option><option>Έχω κάνει παλιότερα</option><option>Αγωνιστικό</option></select></label>
+        <label class="full">Μάθημα<select id="t-class"></select></label>
+        <button class="btn fire" type="submit">Κλείσε θέση</button>
+        <p class="msg" id="t-msg" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© 2026 Arena Combat Academy · Φανταστική σχολή για επίδειξη σχεδίασης</span><span>Δευ–Παρ 07:00–22:30 · Σάβ 10:00–15:00</span></div></footer>
+
+<script>
+(function(){
+  const SPORTS={mma:{n:"MMA",c:"var(--fire)"},box:{n:"Boxing",c:"var(--b-blue)"},kick:{n:"Kickboxing",c:"var(--gold)"},tkd:{n:"Taekwondo",c:"var(--b-green)"}};
+  const DAYS=["Δευτέρα","Τρίτη","Τετάρτη","Πέμπτη","Παρασκευή","Σάββατο"];
+  // [ημέρα 0=Δευ, ώρα, άθλημα, τμήμα]
+  const C=[
+    [0,"07:30","box","Πρωινό"],[0,"17:00","tkd","Παιδικό 6–9"],[0,"18:00","tkd","Παιδικό 10–13"],[0,"19:00","kick","Αρχάριοι"],[0,"20:00","mma","Όλα τα επίπεδα"],[0,"21:15","box","Sparring"],
+    [1,"07:30","kick","Πρωινό"],[1,"17:30","box","Εφηβικό"],[1,"19:00","tkd","Ενήλικες"],[1,"20:00","mma","Πάλη / ground"],[1,"21:15","kick","Μεσαίοι"],
+    [2,"07:30","box","Πρωινό"],[2,"17:00","tkd","Παιδικό 6–9"],[2,"18:00","tkd","Παιδικό 10–13"],[2,"19:00","box","Αρχάριοι"],[2,"20:00","mma","Αγωνιστικό"],[2,"21:15","kick","Αρχάριοι"],
+    [3,"07:30","kick","Πρωινό"],[3,"17:30","box","Εφηβικό"],[3,"19:00","tkd","Ενήλικες"],[3,"20:00","mma","Όλα τα επίπεδα"],[3,"21:15","box","Μεσαίοι"],
+    [4,"07:30","box","Πρωινό"],[4,"17:00","tkd","Παιδικό 6–9"],[4,"18:00","kick","Εφηβικό"],[4,"19:00","mma","Striking"],[4,"20:15","box","Sparring"],[4,"21:15","kick","Sparring"],
+    [5,"10:00","tkd","Εξετάσεις / ζώνες"],[5,"11:00","box","Όλα τα επίπεδα"],[5,"12:00","mma","Open mat"],[5,"13:30","kick","Όλα τα επίπεδα"]
+  ];
+  const chips=document.getElementById('chips'), week=document.getElementById('week');
+  let f="all";
+  const jsDay=new Date().getDay(); const todayIdx=jsDay===0?-1:jsDay-1;
+  function render(){
+    [...chips.children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===f));
+    week.innerHTML=DAYS.map((d,i)=>{
+      const list=C.filter(c=>c[0]===i&&(f==="all"||c[2]===f));
+      return `<div class="day${i===todayIdx?' today':''}"><h3>${d}</h3>${list.length?list.map(c=>`<div class="cls" style="--c:${SPORTS[c[2]].c}"><b>${c[1]}</b><span>${SPORTS[c[2]].n}</span><small>${c[3]}</small></div>`).join(''):'<p class="none">Κανένα μάθημα</p>'}</div>`;
+    }).join('');
+  }
+  [["all","Όλα",null],...Object.entries(SPORTS).map(([k,v])=>[k,v.n,v.c])].forEach(([k,n,c])=>{
+    const b=document.createElement('button');b.type='button';b.dataset.s=k;b.innerHTML=(c?`<i style="--c:${c}"></i>`:'')+n;b.onclick=()=>{f=k;render()};chips.appendChild(b);
+  });
+  render();
+
+  const sp=document.getElementById('t-sport'), cl=document.getElementById('t-class');
+  sp.innerHTML=Object.entries(SPORTS).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('');
+  function fillClasses(){cl.innerHTML=C.filter(c=>c[2]===sp.value).map(c=>`<option>${DAYS[c[0]]} ${c[1]} · ${c[3]}</option>`).join('')}
+  sp.onchange=fillClasses; fillClasses();
+  document.getElementById('trial').addEventListener('submit',e=>{
+    e.preventDefault();
+    const n=document.getElementById('t-name').value.trim(), p=document.getElementById('t-phone').value.replace(/\D/g,''), m=document.getElementById('t-msg');
+    if(!n||p.length<10){m.textContent='Συμπλήρωσε όνομα και τηλέφωνο 10 ψηφίων.';return}
+    m.textContent=`Τα λέμε, ${n.split(' ')[0]}! ${SPORTS[sp.value].n}, ${cl.value}. (Demo φόρμα, δεν στέλνεται πουθενά.)`;
+  });
+})();
+</script>
+</body>
+</html>
