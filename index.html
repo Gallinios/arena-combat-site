@@ -135,6 +135,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
 </head>
 <body>
 
+
 <header>
   <div class="wrap">
     <a class="logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="16,2 29,9 29,23 16,30 3,23 3,9" fill="none" stroke="var(--fire)" stroke-width="3"/><path d="M11 21 16 9l5 12M13 17h6" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linejoin="round"/></svg>ARENA</a>
@@ -280,5 +281,127 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   });
 })();
 </script>
+<!-- CHATBOT START -->
+<script>
+window.CHATBOT={name:"Arena",subtitle:"Combat Academy · Πειραιάς",accent:"#D24A1F",font:"'Fira Sans',system-ui,sans-serif",buttonLabel:"Ρώτα μας",
+greeting:"Γεια σου! Ρώτα με για αθλήματα, πρόγραμμα, τιμές ή για το δωρεάν πρώτο μάθημα.",
+quick:["Πόσο κοστίζει;","Πρόγραμμα MMA","Είμαι αρχάριος","Δωρεάν μάθημα"],
+fallback:"Αυτό δεν το ξέρω. Ρώτα για <b>τιμές</b>, <b>πρόγραμμα</b>, <b>αθλήματα</b>, <b>παιδικά</b> ή <b>δωρεάν μάθημα</b>, ή πάρε μας στο 210 000 0000.",
+intents:[
+{k:["τιμ","κοστ","ποσο","συνδρομ","πακετ","ευρω"],a:"Συνδρομές:<ul><li><b>Ένα άθλημα</b>: 45 €/μήνα, 2 μαθήματα την εβδομάδα</li><li><b>Απεριόριστο</b>: 65 €/μήνα, όλα τα μαθήματα</li><li><b>Παιδικό</b>: 35 €/μήνα</li></ul>Έκπτωση 15% για φοιτητές και αδέρφια. <a href=\"#plans\">Δες τα πακέτα</a>"},
+{k:["mma"],a:"<b>MMA</b>: Δευ 20:00 · Τρι 20:00 (πάλη) · Τετ 20:00 (αγωνιστικό) · Πεμ 20:00 · Παρ 19:00 (striking) · Σαβ 12:00 (open mat). Για 16+."},
+{k:["box","πυγμαχ"],a:"<b>Boxing</b>: Δευ 07:30 & 21:15 · Τρι 17:30 · Τετ 07:30 & 19:00 · Πεμ 17:30 & 21:15 · Παρ 07:30 & 20:15 · Σαβ 11:00. Για 12+."},
+{k:["kick","κικ"],a:"<b>Kickboxing</b>: Δευ 19:00 · Τρι 07:30 & 21:15 · Τετ 21:15 · Πεμ 07:30 · Παρ 18:00 & 21:15 · Σαβ 13:30. Για 14+."},
+{k:["taekwondo","ταεκβοντ","τεκβοντ","τάε","ζων"],a:"<b>Taekwondo</b>: παιδικά Δευ/Τετ/Παρ 17:00 (6–9) και Δευ/Τετ 18:00 (10–13), ενήλικες Τρι/Πεμ 19:00, εξετάσεις ζωνών Σαβ 10:00."},
+{k:["προγραμμ","ωρ","ποτε","μερ","ωραρ"],a:"Το πλήρες εβδομαδιαίο πρόγραμμα είναι <a href=\"#schedule\">εδώ</a>, με φίλτρο ανά άθλημα. Είμαστε ανοιχτά Δευ–Παρ 07:00–22:30 και Σάβ 10:00–15:00.",next:["Πρόγραμμα MMA","Boxing","Kickboxing","Taekwondo"]},
+{k:["αρχαρι","πρωτη φορα","εμπειρι","δεν εχω κανει","κατασταση"],a:"Κανένα πρόβλημα! Όλα τα αθλήματα έχουν τμήματα για αρχάριους. Για πρώτη φορά προτείνουμε Kickboxing αρχαρίων (Δευ 19:00) ή Boxing αρχαρίων (Τετ 19:00)."},
+{k:["δωρεαν","δοκιμ","πρωτο μαθημ","trial"],a:"Το πρώτο μάθημα είναι δωρεάν! Κλείσε θέση από τη <a href=\"#trial\">φόρμα</a>. Φέρε αθλητικά ρούχα και νερό. Γάντια σου δανείζουμε εμείς."},
+{k:["παιδ","παιδι","ηλικ","κορη","γιοσ"],a:"Taekwondo από 6 ετών και boxing από 12. Το παιδικό πακέτο είναι 35 €/μήνα, με εξετάσεις ζωνών δύο φορές τον χρόνο."},
+{k:["γυναικ","κοριτσ"],a:"Φυσικά! Όλα τα τμήματα είναι μικτά και πολλές αθλήτριές μας ξεκίνησαν από το μηδέν."},
+{k:["εξοπλισμ","γαντ","φερω","χρειαζ"],a:"Για το πρώτο μάθημα χρειάζεσαι μόνο αθλητικά ρούχα και νερό. Μετά: γάντια (MMA 4 oz, boxing 12–16 oz), επικαλαμίδες για kickboxing, dobok για taekwondo."},
+{k:["προπονητ","ποιοσ κανει","coach"],a:"Άρης Κ. (MMA), Μαρίνα Λ. (Boxing), Στέλιος Π. (Kickboxing), Ελένη Ν. (Taekwondo, 4 Dan). <a href=\"#coaches\">Γνώρισέ τους</a>"},
+{k:["που","διευθυνσ","τηλεφων","επικοινων"],a:"Λεωφ. Ηρώων Πολυτεχνείου 00, Πειραιάς · 210 000 0000"},
+{k:["γεια","καλησπερ","καλημερ","τι λεει"],a:"Γεια! Τι θες να μάθεις;"},
+{k:["ευχαριστ"],a:"Τα λέμε στο ταταμί! 🥊"}
+]};
+</script>
+<!-- Chatbot: απαντήσεις από τα στοιχεία του site, χωρίς server -->
+<style>
+.cb-btn{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:9998;display:flex;align-items:center;gap:10px;padding:12px 18px 12px 14px;border:0;border-radius:999px;background:var(--cb-accent);color:var(--cb-on);font:600 15px/1 var(--cb-font,system-ui,sans-serif);box-shadow:0 10px 30px -10px rgba(0,0,0,.45);cursor:pointer;transition:transform .15s}
+.cb-btn:hover{transform:translateY(-2px)}
+.cb-btn svg{width:22px;height:22px;flex:none}
+.cb-btn:focus-visible,.cb-panel button:focus-visible,.cb-panel input:focus-visible{outline:3px solid var(--cb-accent);outline-offset:2px}
+.cb-panel{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:9999;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100dvh - 40px));display:flex;flex-direction:column;background:#FFFFFF;color:#1B1F27;border:1px solid #E3E6EC;border-radius:18px;box-shadow:0 24px 60px -20px rgba(0,0,0,.45);overflow:hidden;font:400 15px/1.5 var(--cb-font,system-ui,sans-serif);color-scheme:light}
+.cb-head{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 16px;background:var(--cb-accent);color:var(--cb-on)}
+.cb-av{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-weight:700;flex:none;overflow:hidden}
+.cb-av img{width:100%;height:100%;object-fit:contain;background:#fff}
+.cb-head b{display:block;font-size:15.5px}
+.cb-head small{display:block;font-size:12.5px;opacity:.85}
+.cb-x{margin-left:auto;background:transparent;border:0;color:inherit;font-size:24px;line-height:1;cursor:pointer;width:36px;height:36px;border-radius:50%}
+.cb-x:hover{background:rgba(255,255,255,.18)}
+.cb-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#F6F7F9}
+.cb-m{max-width:86%;padding:10px 13px;border-radius:14px;overflow-wrap:anywhere}
+.cb-m.bot{align-self:flex-start;background:#FFFFFF;border:1px solid #E3E6EC;border-bottom-left-radius:4px}
+.cb-m.me{align-self:flex-end;background:var(--cb-accent);color:var(--cb-on);border-bottom-right-radius:4px}
+.cb-m a{color:var(--cb-link,var(--cb-accent));font-weight:600}
+.cb-m ul{margin:6px 0 0;padding-left:18px}
+.cb-typing{display:inline-flex;gap:4px}
+.cb-typing i{width:7px;height:7px;border-radius:50%;background:#A0A7B4;animation:cbB 1s infinite}
+.cb-typing i:nth-child(2){animation-delay:.15s}.cb-typing i:nth-child(3){animation-delay:.3s}
+@keyframes cbB{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.cb-quick{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;max-height:96px;overflow-y:auto;border-top:1px solid #E3E6EC;background:#FFFFFF;scrollbar-width:thin}
+.cb-quick button{flex:none;font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid #D5D9E1;background:#FFFFFF;color:#1B1F27;cursor:pointer;white-space:nowrap}
+.cb-quick button:hover{border-color:var(--cb-accent);color:var(--cb-link,var(--cb-accent))}
+.cb-form{display:flex;gap:8px;padding:10px 12px 12px;background:#FFFFFF}
+.cb-form input{flex:1;min-width:0;font:inherit;padding:10px 12px;border:1px solid #D5D9E1;border-radius:10px;background:#F6F7F9;color:#1B1F27}
+.cb-form button{flex:none;width:44px;border:0;border-radius:10px;background:var(--cb-accent);color:var(--cb-on);cursor:pointer;display:grid;place-items:center}
+.cb-form button svg{width:20px;height:20px}
+.cb-note{font-size:11px;color:#7A8291;text-align:center;padding:0 12px 8px;background:#FFFFFF}
+@media (max-width:480px){.cb-btn span{display:none}.cb-btn{padding:14px}.cb-panel{right:0;left:0;bottom:0;width:100%;height:min(88dvh,640px);border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}}
+@media (prefers-reduced-motion:reduce){.cb-btn,.cb-typing i{transition:none;animation:none}}
+</style>
+<script>
+(function(){
+  const C=window.CHATBOT; if(!C) return;
+  const root=document.documentElement.style;
+  root.setProperty('--cb-accent',C.accent); root.setProperty('--cb-on',C.onAccent||'#fff');
+  if(C.link) root.setProperty('--cb-link',C.link);
+  if(C.font) root.setProperty('--cb-font',C.font);
+
+  // Κανονικοποίηση ελληνικών: πεζά, χωρίς τόνους, ς→σ
+  const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ς/g,'σ').replace(/[^\p{L}\p{N}\s]/gu,' ');
+  const intents=C.intents.map(it=>({...it,k:it.k.map(x=>norm(x).trim()).filter(Boolean)}));
+  function answer(q){
+    const words=norm(q).split(/\s+/).filter(Boolean); if(!words.length) return null;
+    let best=null,score=0;
+    for(const it of intents){
+      let s=0;
+      for(const k of it.k){
+        if(k.includes(' ')){ if(norm(q).includes(k)) s+=2.5; }
+        else if(words.some(w=>w.startsWith(k)||(k.length>4&&k.startsWith(w)&&w.length>3))) s+=1+Math.min(k.length,8)/10;
+      }
+      if(s>score){score=s;best=it}
+    }
+    return score>0?best:null;
+  }
+
+  const btn=document.createElement('button');
+  btn.className='cb-btn'; btn.type='button'; btn.setAttribute('aria-label','Άνοιγμα συνομιλίας');
+  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>'+(C.buttonLabel||'Ρωτήστε μας')+'</span>';
+  const panel=document.createElement('div');
+  panel.className='cb-panel'; panel.hidden=true; panel.setAttribute('role','dialog'); panel.setAttribute('aria-label','Συνομιλία με '+C.name);
+  panel.innerHTML=`<div class="cb-head"><div class="cb-av">${C.avatar?`<img src="${C.avatar}" alt="">`:C.name.trim()[0]}</div><div><b>${C.name}</b><small>${C.subtitle||'Απαντάμε αμέσως'}</small></div><button class="cb-x" type="button" aria-label="Κλείσιμο συνομιλίας">×</button></div>
+  <div class="cb-log" aria-live="polite"></div>
+  <div class="cb-quick" role="group" aria-label="Γρήγορες ερωτήσεις"></div>
+  <form class="cb-form"><input id="cb-input" type="text" autocomplete="off" placeholder="Γράψτε την ερώτησή σας..." aria-label="Ερώτηση"><button type="submit" aria-label="Αποστολή"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
+  <div class="cb-note">Αυτόματος βοηθός με απαντήσεις από τις πληροφορίες του site</div>`;
+  document.body.append(btn,panel);
+  const log=panel.querySelector('.cb-log'), quick=panel.querySelector('.cb-quick'), form=panel.querySelector('form'), input=panel.querySelector('input');
+  const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function add(html,who){const m=document.createElement('div');m.className='cb-m '+who;m.innerHTML=html;log.appendChild(m);log.scrollTop=log.scrollHeight;return m}
+  function bot(html,chips){
+    const t=add('<span class="cb-typing" aria-label="Γράφει"><i></i><i></i><i></i></span>','bot');
+    setTimeout(()=>{t.innerHTML=html;log.scrollTop=log.scrollHeight;setQuick(chips||C.quick)},reduce?0:Math.min(900,350+html.length*2));
+  }
+  function setQuick(list){quick.innerHTML='';list.forEach(q=>{const b=document.createElement('button');b.type='button';b.textContent=q;b.onclick=()=>ask(q);quick.appendChild(b)})}
+  function ask(q){
+    add(esc(q),'me');
+    const it=answer(q);
+    if(it) bot(it.a,it.next);
+    else bot(C.fallback);
+  }
+  let started=false;
+  function open(){panel.hidden=false;btn.hidden=true;if(!started){started=true;bot(C.greeting)}setTimeout(()=>input.focus(),50)}
+  function close(){panel.hidden=true;btn.hidden=false;btn.focus()}
+  btn.onclick=open; panel.querySelector('.cb-x').onclick=close;
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)close()});
+  form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(!q)return;input.value='';ask(q)});
+  log.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a&&matchMedia('(max-width:480px)').matches)close()});
+  window.__cbAnswer=answer;
+})();
+</script>
+<!-- CHATBOT END -->
+
 </body>
 </html>
